@@ -1,0 +1,51 @@
+
+================================================
+Tutorial for RAZR - The room acoustics simulator
+================================================
+
+Version 0.1
+Corresponding RAZR version: 0.93
+
+Copyright (c) 2018, Torben Wendt, Steven van de Par, Stephan Ewert,
+University of Oldenburg, Germany.
+All rights reserved.
+
+Author: Torben Wendt
+e-mail: torben.wendt(at)uni-oldenburg.de
+
+===============================================================================
+
+This repository contains files for a RAZR hands-on workshop that took place in
+December 2017 for the first time. Files include the slides of a short intro-
+ductory presentation, a collection of exercises, and some supplementary files.
+This repository does not contain RAZR itself. Please download it from
+
+https://github.com/torbenwendt/razr/releases
+
+and specify the path, to where you unzipped the RAZR package, in
+
+./tutorial_addpath.m
+
+Besides, for some of the exercises additional third-party software and/or
+databases are required:
+
+* The API for SOFA-formatted HRTF databases:
+  https://www.sofaconventions.org/mediawiki/index.php/Software_and_APIs
+  
+* HRTF databases, e.g.:
+  https://www.sofaconventions.org/mediawiki/index.php/Files
+
+* AFC - The psychophysical-measurement package for MATLAB:
+  www.aforcedchoice.com
+
+Paths to these databases/packages have to be specified within RAZR, namely in
+the file
+
+razr_cfg_user.m
+
+in RAZR's root directory. For details, please see the RAZR README and the
+documentation of razr_cfg_user.m.
+
+You can store your own MATLAB scripts for the tutorial under
+
+./user_files

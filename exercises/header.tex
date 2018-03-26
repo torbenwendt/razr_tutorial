@@ -1,0 +1,67 @@
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage{amsmath, amssymb, bm, bbm, textcomp} %\textmu
+\usepackage{graphicx}
+
+\setlength{\parindent}{0em}
+\linespread{1.16}
+
+\usepackage[heightrounded=true, twoside=true, outer=2.8cm, inner=3.7cm, top=2.6cm, bindingoffset=0cm]{geometry}
+
+\usepackage{microtype, soul, ragged2e}
+\usepackage{ulem}
+
+\usepackage{color}
+\definecolor{rot}{rgb}{0.8, 0.0, 0.0}
+\definecolor{comment}{rgb}{0.99, 0.2, 0.0}
+
+\numberwithin{equation}{section}
+\makeatletter\@addtoreset{figure}{section}\makeatother
+\renewcommand\thefigure{\thesection.\arabic{figure}}
+\renewcommand\thetable{\thesection.\arabic{table}}
+\numberwithin{footnote}{section}
+
+\usepackage[labelfont={bf, small}, textfont={small}, justification=RaggedRight]{caption}
+\usepackage[rightcaption, raggedright]{sidecap}
+
+\usepackage{libertine}
+\usepackage[scaled=0.75]{beramono}
+
+\newcommand{\ttt}[1]{\textbf{\texttt{#1}}\kern1pt{}}
+\usepackage{sectsty}
+\allsectionsfont{\normalfont\sffamily\bfseries}
+
+\usepackage{listings}
+\lstset{language=C,
+        basicstyle=\small\ttfamily,
+        showstringspaces=false,
+        frame=lines,  % box, lines, leftline
+        breaklines=true,
+        aboveskip=1.5em,
+        belowskip=1em
+}
+
+\newcommand{\code}[1]{\lstinline|#1|}
+
+\usepackage[hidelinks]{hyperref}
+
+\renewcommand{\thesubsection}{\arabic{subsection}}
+
+%==============================================
+% Macros
+
+\newcommand{\lrp}[1]{\left( #1 \right)}
+\newcommand{\lrb}[1]{\left[ #1 \right]}
+\newcommand{\lra}[1]{\left| #1 \right|}
+\newcommand{\lrc}[1]{\left\{ #1 \right\}}
+\newcommand{\lrq}[1]{\guillemotright{}#1\guillemotleft}
+%\newcommand{\lrq}[1]{"`#1"'}
+
+\newcommand{\D}{\text{d}}
+\newcommand{\e}{\text{e}}
+\newcommand{\im}{\text{i}}
+\newcommand{\ei}[1]{\e^{\im(#1)}}
+
+\newcommand{\eqnl}{\\[1ex]}

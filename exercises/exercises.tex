@@ -1,0 +1,139 @@
+% Typeset with pdfLaTeX
+
+\pdfminorversion=4
+
+\documentclass[a4paper, fleqn, 11pt]{article}
+\input{header.tex}
+
+\begin{document}
+\sffamily
+%===================== TITLE ===============================
+\begin{center}
+\LARGE
+\textbf{RAZR tutorial}\\[1em]
+\normalsize
+\end{center}
+%\pagestyle{plain}
+%===========================================================
+
+\vspace{1ex}
+%\newcounter{enumTemp}
+
+% =============================================================================
+\section*{Get started}
+Start MATLAB and change the working directory to where the tutorial scripts are provided. Then, run \ttt{tutorial\_addpath} to add all required paths. Please store your own scripts later in the folder \ttt{user\_files}.
+% =============================================================================
+\section*{Becoming familiar with RAZR}
+% =============================================================================
+\subsection{A basic example}
+A good start to become familiar with RAZR is to look at the provided example scripts. You’ll find them in the folder \ttt{razr/examples}.
+\begin{itemize}
+  \item Start with \ttt{example\_default.m}. Go through the script and run it.
+  \item Have also a look at the room definition \ttt{get\_room\_L}. In the example script, try also \ttt{get\_room\_A} instead of \ttt{get\_room\_L}.
+  \item Have a look into \ttt{example\_options.m} to see how to use options in RAZR. Look into \ttt{get\_default\_options.m} if you’d like to see all available options and their descriptions. In addition, \ttt{sop} is a search function for options that might be convenient.
+\end{itemize}
+
+% =============================================================================
+\subsection{Design and simulate your own room}
+\label{task:design}
+\begin{itemize}
+  \item Estimate the dimensions of the room you are currently in. If it is not rectangular, choose a suitable approximation. Choose suitable wall materials. A list of available materials can be found in \ttt{base/get\_abscoeff\_hall.m}. The search tool \ttt{smat} might also be convenient. During the design process, you can always visualize the room using \ttt{scene}.
+  
+  \item Synthesize a binaural room impulse response (BRIR) for your defined room. Set the option \ttt{op.return\_rir\_parts = true} to obtain the early and late reflections as separate signals.
+  \item Have a look at \ttt{example\_hrtf\_workshop.m} for demonstration how to use head-related transfer functions (HRTFs) for spatial rendering. Use HRTFs when simulating your room.
+  If you’d like to test other spatial rendering methods, use the option \ttt{op.spat\_mode}. Available modes are: \ttt{'hrtf'}, \ttt{'ild'} (broadband interaural level differences), \ttt{'diotic'}, \ttt{'shm'} (spherical head model simulating the effects of HRTFs; it’s the default setting).
+\end{itemize}
+
+% =============================================================================
+\newpage
+\subsection{Analyze the synthesized BRIR}
+\begin{itemize}
+  \item Have a look at \ttt{example\_analysis.m} for demonstration of some BRIR analysis tools.
+  \item Use the tools from \ttt{example\_analysis.m} to analyze the BRIR of your room 
+  (\ttt{plot\_ir, plot\_irspec, schroeder\_rt, soundir, apply\_rir}). Since you have set \ttt{op.return\_rir\_parts = true}, you can plot the early and late reflections separately using \ttt{plot\_ir(ir, 'del')}. This works also with \ttt{plot\_irspec} but with a slightly different syntax (see \ttt{help plot\_irspec}).
+  \item Calculate the estimated reverberation time (RT) of the room using \ttt{estimate\_rt} and compare it with the RT calculated from the actual BRIR (\ttt{schroeder\_rt}).
+\end{itemize}
+
+% =============================================================================
+\subsection{Vary room properties}
+\begin{itemize}
+  \item Save your room for later purposes and create a copy of it.
+  \item Vary the source and receiver positions and listen to the differences. Vary other room parameters and listen to the results. How does, e.g., the perceived speech intelligibility change for different room sizes, wall absorptions, source-receiver distances, or distances of the receiver to a wall? You can also simulate more than one sound source. See \ttt{example\_multiple\_src.m} for details.
+\end{itemize}
+
+%\setcounter{enumTemp}{\theenumi}
+
+% =============================================================================
+\section*{\sffamily Advanced exercises (choose the ones you like)}
+% =============================================================================
+\subsection{Simulate a room based on a measured BRIR}
+Write a script that takes a measured BRIR and synthesizes it.
+
+\begin{itemize}
+  \item Load a measured BRIR of your choice from the folder \ttt{databases/measured\_brirs/brirs}. Load the according room from \ttt{databases/measured\_brirs/rooms}. These rooms are not complete: the wall materials are missing.
+  \item Calculate the reverberation time (RT) using \ttt{schroeder\_rt}. Use octave-band center frequencies from 250\,Hz to 8\,kHz. (Using the Lundeby noise floor truncation is not required since the noise floors have already been removed from the measured BRIRs.)
+  \item From the RT, calculate the mean wall absorption coefficient using \ttt{estimate\_abscoeff}.
+  \item Add the calculated absorption coefficient and the used frequency base to the room structure. Use the fieldnames \ttt{materials} and \ttt{freq}, respectively. Make sure to store \ttt{materials} as a row vector.
+  \item Synthesize the BRIR. (For better comparability, you can set \ttt{op.len} to the length of the measured BRIR.)
+  \item Compare the measured and synthesized BRIRs. Listen to the BRIRs (\ttt{soundir}), as well as to auralizations (\ttt{apply\_rir}). Where do you hear larger differences?
+  \item Compare energy deceay curves (EDCs) and RTs (\ttt{schroeder\_rt}).
+  \item The measured BRIR represents one specific source-receiver arrangement. However, in the simulation, you are now able to freely choose their positions as desired.
+\end{itemize}
+
+% =============================================================================
+\subsection{Vary synthesis options}
+\label{task:op}
+\begin{itemize}
+  \item Vary the maximum image source order (\ttt{op.ism\_order}) and compare the different results. Note: If you set the option \ttt{op.return\_rir\_parts = true}, you can plot the early and late reflections separately using \ttt{plot\_ir(ir, 'del')}.
+  
+  \item Synthesize a BRIR using only image sources. Use the option \ttt{op.ism\_only} as demonstrated in \ttt{example\_ism\_only.m}. Start with a small maximum image source order $< 10$ and increase it step by step. (Note that the number of reflections grows with third power of image source order!) What maximum image source order is sufficient to get enough reflections for acceptable reverberation? Does this number depend on the chosen room?
+  
+  \item In the implemented image source model, a random jitter is applied on all image source positions, which prevents \lrq{sweeping echo} artifacts. Vary the amount of jittering using the option \ttt{op.ism\_jitter\_factor} (the default is 0.07). Synthesize BRIRs with the \ttt{ism\_only} option and with \ttt{op.ism\_jitter\_factor = 0}. Listen to the resulting BRIR and compare it with the default setting. Auralize the BRIRs with different signals, e.g., speech and noise,\\
+  \ttt{apply\_rir(ir, 'src', \{'olsa1', randn(1e3, 1)\})}. What signal is more prone to artifacts?
+  
+  \item If you would like to play around with other options, see all available options in\\
+  \ttt{razr/base/get\_default\_options.m}.
+\end{itemize}
+
+% =============================================================================
+\subsection{Use RAZR for AFC experiments}
+Set up an alternative-forced-choice (AFC) experiment to measure just noticeable differences (JDNs) for a room acoustical parameter (or a synthesis parameter) of your choice. For this exercise, the AFC package for MATLAB is used \textit{(www.aforcedchoice.com).} Deep knowledge of the usage of AFC is not necessary. However, if you are not familiar with the AFC framework, please ask for help.\\
+Investigated parameters might be: Absorption coefficient, source-receiver distance, ISM jitter factor (see exercise~\ref{task:op}), …
+\begin{itemize}
+  \item Go to the directory \ttt{afc} and type \ttt{afc\_addpath}.
+  \item In \ttt{afc/experiments}, you can find a pre-configured AFC experiment called \lrq{rap} (\lrq{room acoustical parameter}). It is defined by the three files \ttt{rap\_cfg.m}, \ttt{rap\_set.m}, and \ttt{rap\_user.m}. Have a look into these files.
+  \item The AFC procedure is started with\\
+  \ttt{>{}> afc('main', 'rap', 'subject\_name', cond);}\\
+  where \ttt{cond} is either \ttt{'speech'} or \ttt{'noise'}. Results are written to \ttt{afc/results}.
+  \item Create your own copies of the three files \ttt{rap\_*.m} and set up a similar experiment to measure the JND for a room acoustical parameter or a synthesis parameter of your choice.
+\end{itemize}
+
+
+% =============================================================================
+\subsection{Render simulations on a loudspeaker array (VR lab)}
+Experience RAZR in the Virtual Reality Lab!
+\begin{itemize}
+  \item In the example file \ttt{example\_vrroom.m}, it is shown how to run RAZR for the loudspeaker setup in the VR lab. Open it, go through it and run it. The script can also write multichannel-wav files to the harddrive that can be played back later using the script \ttt{vrroom\_play\_audio.m}.
+  \item Compare different rendering methods: Nearest speaker, vector-base amplitude panning (VBAP), and coloration-optimized VBAP (\ttt{op.array\_render = nearest, vbap, vbap\_colComp}). For comparison of the rendering methods, it is convenient to run \ttt{razr} with \ttt{op.ism\_only = 0} (simulates the direct sound only). Try different virtual source positions.
+  \item Go back to the room simulation (i.e., reset \ttt{op.ism\_only = -1} or comment it out) and compare different source-receiver distances.
+  \item Vary the spatial resolution of reverberation. For the relevant options, see the comments in \ttt{get\_vrr\_op.m}.
+\end{itemize}
+
+% =============================================================================
+\subsection{Simulate coupled rooms}
+In addition to the room you designed in exercise~\ref{task:design}, estimate a shoebox approximation of a neighbor room that is connected to the current room by a door.
+\begin{itemize}
+    \item Have a look into \ttt{example\_coupled.m} for a demonstration how to define a coupled-rooms scene.
+    \item Connect your own two rooms in a similar manner and run a simulation.
+\end{itemize}
+
+% =============================================================================
+\subsection{Simulate rooms with extreme geometries}
+Try RAZR for rooms with extreme geometries.
+\begin{itemize}
+    \item Design and simulate rooms that are very large, very small, very long and narrow, …
+    \item Try \ttt{op.fdn\_delays\_choice = 'hyp2'} and compare.
+    \item Enable RAZR’s scattering modules by setting \ttt{op.enable\_scattering = true; op.enableSR = true} and compare.
+\end{itemize}
+
+\end{document}
