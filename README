@@ -3,12 +3,7 @@
 Tutorial for RAZR - The room acoustics simulator
 ================================================
 
-Version 0.1
 Corresponding RAZR version: 0.93
-
-Copyright (c) 2018, Torben Wendt, Steven van de Par, Stephan Ewert,
-University of Oldenburg, Germany.
-All rights reserved.
 
 Author: Torben Wendt
 e-mail: torben.wendt(at)uni-oldenburg.de
@@ -42,7 +37,7 @@ databases are required:
 Paths to these databases/packages have to be specified within RAZR, namely in
 the file
 
-razr_cfg_user.m
+razr/razr_cfg_user.m
 
 in RAZR's root directory. For details, please see the RAZR README and the
 documentation of razr_cfg_user.m.
