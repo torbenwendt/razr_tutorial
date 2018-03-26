@@ -15,9 +15,10 @@ e-mail: torben.wendt(at)uni-oldenburg.de
 
 ===============================================================================
 
-This repository contains files for a RAZR hands-on workshop that took place in
-December 2017 for the first time. Files include the slides of a short intro-
-ductory presentation, a collection of exercises, and some supplementary files.
+This repository provides a tutorial for a RAZR. It was used in a similar form on
+a hands-on workshop that took place in December 2017 for the first time. Files
+include the slides of a short introductory presentation, a collection of
+exercises, and some supplementary files.
 This repository does not contain RAZR itself. Please download it from
 
 https://github.com/torbenwendt/razr/releases

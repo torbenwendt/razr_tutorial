@@ -8,3 +8,4 @@ addpath(tutorial_pth);
 addpath(razr_pth);
 razr addpath;
 addpath([tutorial_pth, filesep, 'user_files']);
+addpath([tutorial_pth, filesep, 'material', filesep, 'afc_experiment']);

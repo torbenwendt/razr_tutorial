@@ -72,7 +72,7 @@ def.allowpredict = 0;				% if 1 generate new stimuli during sound output if def.
 def.internSoundCommand = 'sound';
 %def.internSoundCommand = 'wavplay';
 %def.internSoundCommand = 'audioplayer'; % 'sound' or 'audioplayer'
-%def.markIntervalDelay = 0.5;        % tweak if audioplayer is used, default is 0
+def.markIntervalDelay = -0.25;        % tweak if audioplayer is used, default is 0
 
 %def.externSoundCommand = '';%'soundmexprofree';
 
