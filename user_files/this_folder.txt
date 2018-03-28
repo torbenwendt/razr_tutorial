@@ -1,0 +1,2 @@
+You can store your own files in this folder. It will be added to the search path
+by tutorial_addpath.m.
